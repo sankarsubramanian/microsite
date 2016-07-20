@@ -1,0 +1,24 @@
+{
+    "steps": [
+         {    
+            "title":"Create Phone Object",
+            "content": "1. Every action for call & conference management is done via the Phone’s interface.<br> 2. Phone object is the main interface for login & making a call.<br> 3. Register the events call:incoming, call:connected, call:disconnected with the Phone object to handle the appropriate actions.",
+            "htmlcode": "<html>&#013;&lt;p&gt;&#013;&lt;button id=&quot;createPhoneObjectButton&quot; onclick=&quot;createPhoneObject()&quot;&gt;Create Phone Object&lt;/button&gt;&#013;&lt;button id=&quot;createPhoneSuccessButton&quot; hidden disabled&gt;Phone Object Created Successfully&lt;/button&gt;&#013;&lt;/p&gt;&#013;</html>",
+            "javascriptcode": "//Step 1.Get DHS Configuration and Create Phone Object  \n var phone, accessToken, myDHS, myDHSURL = 'your_dhs_url';\n var xhrConfig = new XMLHttpRequest();\n xhrConfig.open('GET', myDHSURL + \"/config/\");\n xhrConfig.onreadystatechange = function() { \n if (xhrConfig.readyState == 4) { \n if(xhrConfig.status == 200) { \n myDHS = JSON.parse(xhrConfig.responseText);} \n else { \n console.log(xhrConfig.responseText);}}} \n xhrConfig.send();\n function createPhoneObject() { \n phone = ATT.rtc.Phone.getPhone();registerEvents();\n createPhoneObjectButton.hidden = true;\n createPhoneSuccessButton.hidden = false;} \n function registerEvents() { \n phone.on('error', onError);} \n function onError(data) {\nconsole.log(data.error);\n}"
+        },
+        {
+        	"title":"Create Access Token",
+            "content": "1. Before create the access token, refer the Sample App Deployment from JSDocumentation & create Developer Hosted server (DHS).<br> 2. Get the app token url from DHS & request the access token.<br> 3. Once token received associate the token with the user-id."
+        },
+        {
+        	"title":"Create Enhanced webRTC session",
+            "content": "1. phone.login establishes Enhanced webRTC session so that the user can start making Enhanced webRTC calls.<br> 2. Session ready event will be published after successfully logged into the the Enhanced webRTC. This event indicates that the SDK is ready to make or receive calls."
+        },
+        
+        {
+        	"title":"Clear Enhanced webRTC session",
+            "content": "1. phone.logout logs out the user from Enhanced webRTC session.<br> 2. Session disconnected event will be published after logging out from Enhanced webRTC session. This event is published to indicate that the session was successfully deleted."
+        }
+       
+    ]
+}

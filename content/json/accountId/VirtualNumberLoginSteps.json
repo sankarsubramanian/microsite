@@ -1,0 +1,24 @@
+{
+    "steps": [
+        {    
+            "title":"Create Phone Object",
+            "content": "1. Every action for call & conference management is done via the Phone’s interface.<br> 2. Phone object is the main interface for login & making a call.<br> 3. Register the events call:incoming, call:connected, call:disconnected with the Phone object to handle the appropriate actions."
+        },
+        {
+        	"title":"Create Access Token",
+            "content": "1. Before create the access token, refer the Sample App Deployment from JSDocumentation & create Developer Hosted server (DHS).<br> 2. Get the app token url from DHS & request the access token.<br> 3. Once token received associate the token with the user-id."
+        },
+        {
+        	"title":"Creating E911 ID",
+            "content": "1. The e911 id can only be created for mobile number users or virtual number users.<br> 2. e911id is an user's address identifier."
+        },
+        {
+        	"title":"Create Enhanced webRTC session",
+            "content": "1. phone.login establishes Enhanced webRTC session so that the user can start making Enhanced webRTC calls.<br> 2. Session ready event will be published after successfully logged into the the Enhanced webRTC. This event indicates that the SDK is ready to make or receive calls."
+        },
+        {
+        	"title":"Clear Enhanced webRTC session",
+            "content": "1. phone.logout logs out the user from Enhanced webRTC session.<br> 2. Session disconnected event will be published after logging out from Enhanced webRTC session. This event is published to indicate that the session was successfully deleted."
+                   }
+    ]
+}

@@ -1,0 +1,38 @@
+{
+    "steps": [
+        {    
+            "title":"Create Phone Object",
+            "content": "1. Get DHS Configuration and Create Phone Object using ewebrtc.sdk.min.js.<br>2. Phone Object will automatically register all events which is used for establishing the communication between the users.",
+            "htmlcode": "<html>&#013;&lt;p&gt;&#013;&lt;button id=&quot;createPhoneObjectButton&quot; onclick=&quot;createPhoneObject()&quot;&gt;Create Phone Object&lt;/button&gt;&#013;&lt;button id=&quot;createPhoneSuccessButton&quot; hidden disabled&gt;Phone Object Created Successfully&lt;/button&gt;&#013;&lt;/p&gt;&#013;</html>",
+            "javascriptcode": "//Step 1.Get DHS Configuration and Create Phone Object  \n var phone, accessToken, myDHS, myDHSURL = 'your_dhs_url';\n var xhrConfig = new XMLHttpRequest();\n xhrConfig.open('GET', myDHSURL + \"/config/\");\n xhrConfig.onreadystatechange = function() { \n if (xhrConfig.readyState == 4) { \n if(xhrConfig.status == 200) { \n myDHS = JSON.parse(xhrConfig.responseText);} \n else { \n console.log(xhrConfig.responseText);}}} \n xhrConfig.send();\n function createPhoneObject() { \n phone = ATT.rtc.Phone.getPhone();registerEvents();\n createPhoneObjectButton.hidden = true;\n createPhoneSuccessButton.hidden = false;} \n function registerEvents() { \n phone.on('error', onError);} \n function onError(data) {\nconsole.log(data.error);\n}"
+        },
+        {
+        	"title":"Create Access Token",
+            "content": "Create Access Token using the tokens URL.<br> Ex:POST https://api.att.com/tokens."
+        },
+        {
+        	"title":"Generate Associate Access Token",
+            "content": "Generate Associate Access Token using the Phone Object API.<br> EX: phone.associateAccessToken(options)."
+        },
+        {
+        	"title":"Login Enhanced WebRTC",
+            "content": "Login Enhanced WebRTC associate access Token.<br>Ex : phone.login(options)"
+        },
+        {
+        	"title":"Listening Events",
+            "content": "1. phone.on('error', onError); <br> 2. phone.on('session:ready', onSessionReady);<br>3. phone.on('session:disconnected', onSessionDisconnected);<br>4. phone.on('call:incoming', onIncomingCall);<br>5. phone.on('call:connected', onConnectedCall);"
+        },
+        {
+        	"title":"Make a Call",
+            "content": "1. Enter another user by AccountId.<br>2. Make a Call to another user by using the phone Object Dial API.<br>Ex : phone.dial(options)"
+        },
+        {
+        	"title":"Mute Call",
+            "content": "1.Mute a Call by using the phone object API as <br>Ex : phone.mute();<br>2. Listening event as below.<br>phone.on('call:muted', onMutedCall);"
+        },
+        {
+        	"title":"Unmute Call",
+            "content": "1.Unmute a Call by using the phone object API as <br>Ex : phone.unmute();<br>2. Listening event as below.<br>phone.on('call:unmuted', onUnmutedCall);"
+        }
+    ]
+}

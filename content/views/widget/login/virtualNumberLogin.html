@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VirtualNumber Login</title>
+<style>
+.CodeMirror{
+height :240px;
+}
+</style>
+</head>
+<body>
+<div class="container-fluid widget4_outer_block">
+ <div class="row">
+ 
+  <section>
+  
+   <!--Left Block Starts-->
+   <div class="col-sm-4 col-md-4 widget4_left_outerBlock">
+   
+    <div align="justify">
+     <div class="widget4_leftBlock_heading">Description</div>
+     <div class="widget4_video_modal">
+     <!-- Button HTML (to Trigger Modal) -->
+       <a href="#modal_video" class="btn btn-sm btn-primary raised btn-responsive widget4_video_btn " data-toggle="modal">Video</a>
+       
+       <div id="modal_video" class="modal fade">
+        <div class="modal-dialog">
+         <div class="modal-content">
+          <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+           <h4 class="modal-title">Tutorial Video</h4>
+          </div>
+          <div class="modal-body">
+          <div class="embed-responsive embed-responsive-16by9">
+           <iframe id="tutorialVideo" class="embed-responsive-item" src="https://www.youtube.com/embed/HApb6LkNsg4?modestbranding=1&theme=light" frameborder="0" allowfullscreen></iframe>
+          </div>
+          </div>
+         </div>
+        </div>
+       </div>
+     </div>
+     
+     <div id="widget4_Carousel" class="carousel slide widget4_carousel_container" data-ride="carousel">
+     <!-- Indicators -->
+       <ol class="carousel-indicators widget4_carousel-indicators" id="widget4_indicators">
+		</ol>
+		<div class="carousel-inner widget4_carousel-inner" id="widget4_homepageItems"></div>
+       
+        <!-- Left and right controls -->
+      <a class="carousel-control left" href="#widget4_Carousel"
+			role="button" data-slide="prev"> 
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			 <span class="sr-only">Previous</span>
+		</a> 
+		<a class="carousel-control right" href="#widget4_Carousel" role="button" data-slide="next" >
+		 <span class="glyphicon glyphicon-chevron-right carousel-right-arrow" aria-hidden="true"></span>	
+		</a>
+     </div>
+    </div>
+   </div>
+   <!--Left Block Ends-->
+   
+   
+   <!--Right Block Starts-->
+   <div class="col-sm-8 col-md-8 widget4-right-outerBlock">
+    <div align="justify">
+     <div class="widget4_leftBlock_heading">
+	   <b>HTML</b>
+	 </div>
+     <div>
+	  <textarea autocomplete="off" spellcheck="false" class="widget4-textBlock" disabled=true id="widget4_htmlText">
+<p>
+<button id="createPhoneObjectButton" onclick="createPhoneObject()">Create Phone Object</button>
+<button id="createPhoneSuccessButton" hidden disabled>Phone Object Created Successfully</button>
+</p>
+    
+<!-- Step 2a: HTML Login and Logout UI -->
+<p>
+<input type="text" id="loginInput" placeholder="Example: 123456789" size="30" hidden>
+<button id="loginButton" onclick="createAccessToken()" hidden>Virtual Number Login</button>
+<button id="logoutButton" onclick="logout()" hidden>Logout</button>
+</p>
+</textarea>
+	 </div>
+    </div>
+    
+    <div align="justify" class="widget4_javascriptBlock">
+     <div class="widget4_leftBlock_heading">
+		<b>JavaScript</b>
+	 </div>
+	 <div>
+	  <textarea autocomplete="off" spellcheck="false" class="widget4-textBlock"  id="widget4_javascriptText" disabled=true>
+var phone, accessToken, myDHS, myDHSURL = 'https://lprod.code-api-att.com/ewebrtc-dhs';
+    
+//Get DHS Configuration Information
+var xhrConfig = new XMLHttpRequest();
+xhrConfig.open('GET', myDHSURL + "/config/");
+xhrConfig.onreadystatechange = function() {
+    if (xhrConfig.readyState == 4) {
+        if (xhrConfig.status == 200) {
+            console.log(xhrConfig.responseText);
+            myDHS = JSON.parse(xhrConfig.responseText);
+        } else {
+            console.log(xhrConfig.responseText);
+        }
+    }
+}
+xhrConfig.send();  
+
+function createPhoneObject() {
+    phone = ATT.rtc.Phone.getPhone();
+    registerEvents();
+    createPhoneObjectButton.hidden = true;
+    createPhoneSuccessButton.hidden = false;
+    loginInput.hidden = false; // Added in Step 2
+    loginButton.hidden = false; // Added in Step 2
+}
+    
+function onError(data) {
+    console.log(data.error);
+}
+  
+function registerEvents() {
+    phone.on('error', onError); 
+    phone.on('session:ready', onSessionReady); // Added in Step 2
+    phone.on('session:disconnected', onSessionDisconnected); // Added in Step 2
+}
+    
+// Step 2b: Login and Logout
+function onSessionReady() {
+    loginButton.hidden = true;
+    logoutButton.hidden = false;
+}
+    
+function onSessionDisconnected() {
+    loginButton.hidden = false;
+    logoutButton.hidden = true;
+}
+          
+function createAccessToken() {
+    var xhrToken = new XMLHttpRequest();
+        xhrToken.open('POST', myDHS.app_token_url);
+        xhrToken.setRequestHeader("Content-Type", "application/json");
+        xhrToken.onreadystatechange = function() {
+            if (xhrToken.readyState == 4) {
+                if (xhrToken.status == 200) {
+                    console.log(xhrToken.responseText);
+                    accessToken = (JSON.parse(xhrToken.responseText));
+                    associateAccessToken();
+                    console.log("access toke is "+accessToken);
+                } else {
+                    console.log(xhrToken.responseText);
+                }
+            }
+        }
+        xhrToken.send(JSON.stringify({app_scope: "VIRTUAL_NUMBER"}));
+}
+
+function associateAccessToken() {
+    phone.associateAccessToken({
+        userId: "vtn:"+loginInput.value,
+        token: accessToken.access_token,
+        success: createE911AddressId,
+        error: onError
+    });
+}
+
+function createE911AddressId() {
+
+    var address = { first_name: 'Enhanced WebRTC',
+
+        last_name: 'Tester',
+
+        house_number: '16221',
+
+        street: 'NE 72nd Way',
+
+        unit: '',
+
+        city: 'Redmond',
+
+        state: 'WA',
+
+        zip: '98052'
+    }
+
+    getE911Id(address,
+            false,
+            function (response) {
+                loginEnhancedWebRTC(accessToken.access_token, response);
+            },
+            onError);
+}
+
+
+function getE911Id(address, is_confirmed, success, error) {
+    createE911AccessToken('E911',
+            null,
+            function (response) {
+
+                    createE911Id(response.access_token, address, is_confirmed, success, error);
+
+            },
+            onError);
+}
+
+function createE911AccessToken(appScope, authCode, success, error) {
+    var xhrToken = new XMLHttpRequest();
+
+    xhrToken.open('POST', myDHS.app_token_url);
+    xhrToken.setRequestHeader("Content-Type", "application/json");
+    xhrToken.onreadystatechange = function () {
+
+        if (xhrToken.readyState === 4) {
+            if (xhrToken.status === 200) {
+                success(JSON.parse(xhrToken.responseText));
+
+            } else {
+                error(xhrToken.responseText);
+            }
+        }
+    };
+    xhrToken.send(JSON.stringify({app_scope: appScope, auth_code: authCode}));
+}
+
+
+function loginEnhancedWebRTC(token, e911Id) {
+
+    phone.login({
+        token: token,
+        e911Id: e911Id ? e911Id.e911Locations.addressIdentifier : null
+    });
+}
+
+function createE911Id(accessToken, address, is_confirmed, success, error) {
+    var xhrE911 = new XMLHttpRequest();
+
+    xhrE911.open('POST', myDHS.app_e911id_url);
+    xhrE911.setRequestHeader("Content-Type", "application/json");
+    xhrE911.onreadystatechange = function () {
+        if (xhrE911.readyState === 4) {
+            if (xhrE911.status === 200) {
+                success(JSON.parse(xhrE911.responseText));
+            } else {
+                error(xhrE911.responseText);
+            }
+        }
+    };
+    xhrE911.send(JSON.stringify({token: accessToken, address: address, is_confirmed: is_confirmed}));
+}
+
+function logout() {
+    phone.logout();
+}
+      </textarea>
+	 </div>
+    </div>    
+    
+   </div>
+   
+   <!--Right Block Ends-->
+  </section>
+  
+  <!--Bottom Block Starts-->
+  <section>
+    <div class="col-sm-12 col-md-12 widget4_bottom-textBlock">
+     <div class="desctittle">Results
+		<!-- <button type="button" style="float: right;" onclick="clickRun()" class="runbutton">Run</button> -->
+	
+	<button type="button" style="float: right;" class="btn btn-primary btn-sm raised" onclick="clickRun()">Run</button>
+	 </div>	
+	 <div id="footerDataWidget" ></div>
+    </div>
+  </section>
+  <!--Bottom Block Ends-->
+  
+ </div>
+</div>
+<!--<script>
+		 var scriptEditArea= applyStyleToTextArea("widget4_javascriptText","javascript","150px");
+		 var htmlEditArea= applyStyleToTextArea("widget4_htmlText","text/html","150px");
+</script>-->
+</body>
+</html>

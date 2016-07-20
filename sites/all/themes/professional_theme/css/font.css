@@ -1,0 +1,66 @@
+//
+// Fonts
+// --------------------------------------------------
+
+// Omnes ATT
+// --------------------------------------------------
+@font-face {
+    font-family: 'Omnes ATT Light';
+    /* font-family: 'OmnesATT'; */
+    font-style: normal;
+    font-weight: 300;
+    src: url('../fonts/omnes-att/OmnesATT-Light.woff') format('woff'),  
+         url('../fonts/omnes-att/OmnesATT-Light.otf')format('opentype'),
+         url('../fonts/omnes-att/OmnesATT-Light.ttf')format('truetype');
+}
+
+@font-face {
+    font-family: 'Omnes ATT Light italic';
+    /* font-family: 'OmnesATT'; */
+    font-style: italic;
+    font-weight: 300;
+    src: url('../fonts/omnes-att/OmnesATT-LightItalic.woff') format('woff'),
+         url('../fonts/omnes-att/OmnesATT-LightItalic.otf')format('opentype'),
+         url('../fonts/omnes-att/OmnesATT-LightItalic.ttf')format('truetype');
+}
+
+@font-face {
+    font-family: 'Omnes ATT Regular';
+    /* font-family: 'OmnesATT'; */
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/omnes-att/OmnesATT-Regular.woff') format('woff'), 
+         url('../fonts/omnes-att/OmnesATT-Regular.otf')format('opentype'),
+         url('../fonts/omnes-att/OmnesATT-Regular.ttf')format('truetype');
+
+}
+
+@font-face {
+    font-family: 'Omnes ATT Regular italic';
+  /* //  font-family: 'OmnesATT'; */
+    font-style: italic;
+    font-weight: 400;
+    src: url('../fonts/omnes-att/OmnesATT-RegularItalic.woff') format('woff'), 
+         url('../fonts/omnes-att/OmnesATT-RegularItalic.otf')format('opentype'),
+         url('../fonts/omnes-att/omnes-att/OmnesATT-RegularItalic.ttf')format('truetype');
+}
+
+@font-face {
+    font-family: 'Omnes ATT Medium';
+ /*    font-family: 'OmnesATT'; */
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/omnes-att/OmnesATT-Medium.woff') format('woff'), 
+         url('../fonts/omnes-att/OmnesATT-Medium.otf')format('opentype'),
+         url('../fonts/omnes-att/OmnesATT-Medium.ttf')format('truetype');
+}
+
+@font-face {
+    font-family: 'Omnes ATT Medium italic';
+   /* font-family: 'OmnesATT';*/
+    font-style: italic;
+    font-weight: 700;
+    src: url('../fonts/omnes-att/OmnesATT-MediumItalic.woff') format('woff'), 
+         url('../fonts/omnes-att/OmnesATT-MediumItalic.otf')format('opentype'),
+         url('../fonts/omnes-att/OmnesATT-MediumItalic.ttf')format('truetype');
+}

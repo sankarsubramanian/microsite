@@ -1,0 +1,123 @@
+
+.carousel_container {
+    background-color: #d5d5d5;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    padding-bottom: 60px;
+    padding-top: 40px;
+    padding-left: 70px;
+    padding-right: 70px;
+   
+}
+
+.inner_leftblock {
+    width:50%;
+}
+
+.inner_rightblock {
+    width:50%;
+    float:right;
+}
+
+.left-description-block {
+    float: left;
+    height: 455px;
+    width:100%;
+    border: none;
+    background-color: #e4cec6;
+}
+
+.inner_iframe{
+    float: left;
+    height: 530px;
+    width:100%;
+    border: none;
+    
+}
+.right-testCode-block {
+    height: 455px;
+    background-color: white;
+    width:100%;
+    border: none;
+    
+}
+
+/* .carousel-glyphicon_left {
+   margin-left: -4% !important;
+  color: #747474;
+  color: #285e8e;
+  color: #1496d6;
+}
+
+
+.carousel-glyphicon_right {
+   right: -4%; !important;
+ right:-12%;
+ right:0%;
+ right: -2%;
+    left: auto;
+   color: #747474 ;
+  color: #285e8e;
+  color: #1496d6;
+} */
+.carousel-indicators li {
+    background: #747474 !important;
+    border: none !important;
+    margin: 0 10px 0 0;
+}
+
+.carousel-indicators .active {
+    background: #fe7f01 !important;
+    border: none !important;
+    margin: 0 10px 0 0;
+}
+
+.main-con {
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-right: 20px;
+}
+
+.main-con h3 {
+    margin-top: 0px;
+}
+
+.main-con hr {
+    color: black;
+    
+}
+
+.des-content textarea {
+    border:none;
+    height: 374px;
+    margin: 0px;
+    width: 98%;
+    font-size: 13px ;
+    font-weight: bold;
+    color: #3333 ;
+}
+
+.txtarea{
+   background-color:#e4cec6; 
+   text-align: initial; 
+}
+
+.carousel-control{
+	opacity: 1 !important;
+}
+.glyphicon-chevron-left, .glyphicon-chevron-right{
+	font-size: 22px !important;
+}
+
+.carousel-control.right, .carousel-control.left{
+    background:none;
+	color:#1496d6 !important;
+	width:0% !important;
+}
+
+.carousel-control.right:hover, .carousel-control.left:hover{
+    background:none;
+	color:#fff !important;
+	width:0% !important;
+}
